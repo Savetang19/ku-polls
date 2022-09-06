@@ -102,4 +102,4 @@ class QuestionResultsViewTests(TestCase):
         choice = question.choice_set.get(pk=1)
         url = reverse('polls:results', args=(question.id,))
         response = self.client.get(url)
-        self.assertContains(response, f"{choice.choice_text} -- {choice.votes} vote(s)")
+        self.assertContains(response, f"{choice.choice_text} -- {choice.votes} vote")
