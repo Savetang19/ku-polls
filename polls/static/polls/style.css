@@ -1,7 +1,16 @@
 li a {
     color: green;
-    font-size: 24px;
+    font-size: 22px;
 }
 body {
     background: white url("images/background.png") no-repeat;
+}
+li {
+    font-size: 22px;
+}
+input {
+    font-size: 15px;
+}
+label {
+    font-size: 22px;
 }
