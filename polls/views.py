@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib import messages
 
 from .models import Question, Choice
 
@@ -25,6 +26,18 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         """Exclude any question that are not published yet."""
         return Question.objects.filter(pub_date__lte=timezone.now())
+
+    def get(self, request, *args, **kwargs):
+        try:
+            question = get_object_or_404(Question, pk=kwargs["pk"])
+        except Http404:
+            messages.error(request, "This poll does not exists.")
+            return redirect("polls:index")
+        if question.can_vote():
+            return render(request, self.template_name, {"question": question})
+        else:
+            messages.error(request, "This poll is not available to vote.")
+            return redirect("polls:index")
 
 
 class ResultsView(generic.DetailView):

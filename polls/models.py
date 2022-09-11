@@ -8,7 +8,7 @@ from django.contrib import admin
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
-    end_date = models.DateTimeField("end date", null=True)
+    end_date = models.DateTimeField("end date", null=True, blank=True)
 
     @admin.display(
         boolean=True,
@@ -28,6 +28,8 @@ class Question(models.Model):
 
     def can_vote(self):
         now = timezone.now()
+        if not self.end_date:
+            return self.pub_date <= now
         return self.pub_date <= now <= self.end_date
 
 
