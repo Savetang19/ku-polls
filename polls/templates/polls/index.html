@@ -2,6 +2,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
 <h1>Welcome to the KU polls; see the list of questions below!</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <a{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</a>
+    {% endfor %}
+</ul>
+{% endif %}
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}

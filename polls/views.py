@@ -31,12 +31,12 @@ class DetailView(generic.DetailView):
         try:
             question = get_object_or_404(Question, pk=kwargs["pk"])
         except Http404:
-            messages.error(request, "This poll does not exists.")
+            messages.error(request, f"Poll number {kwargs['pk']} does not exists.")
             return redirect("polls:index")
         if question.can_vote():
             return render(request, self.template_name, {"question": question})
         else:
-            messages.error(request, "This poll is not available to vote.")
+            messages.error(request, f"Poll number {question.id} is not available to vote")
             return redirect("polls:index")
 
 
