@@ -1,14 +1,16 @@
+"""This module contains polls app views."""
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
-
 from .models import Question, Choice
 
 
 class IndexView(generic.ListView):
+    """View for index page which displays the most recent 5 questions."""
+
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
@@ -20,6 +22,8 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """View for each question."""
+
     model = Question
     template_name = "polls/detail.html"
 
@@ -28,6 +32,7 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, *args, **kwargs):
+        """Handel the Get request for the detail view."""
         try:
             question = get_object_or_404(Question, pk=kwargs["pk"])
         except Http404:
@@ -41,10 +46,13 @@ class DetailView(generic.DetailView):
 
 
 class ResultsView(generic.DetailView):
+    """View for each question's result."""
+
     model = Question
     template_name = "polls/results.html"
 
     def get(self, request, *args, **kwargs):
+        """Handel the Get request for the results view."""
         try:
             question = get_object_or_404(Question, pk=kwargs["pk"])
         except Http404:
@@ -59,6 +67,7 @@ class ResultsView(generic.DetailView):
 
 
 def vote(request, question_id):
+    """Voting process on detail view."""
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
