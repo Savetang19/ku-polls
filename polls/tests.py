@@ -5,9 +5,12 @@ from django.urls import reverse
 from .models import Question
 
 
-def create_question(question_text, days):
+def create_question(question_text, days, end=None):
     """Create a question with the given text and published day offset to now"""
     time = timezone.now() + datetime.timedelta(days=days)
+    if end is not None:
+        end_time = timezone.now() + datetime.timedelta(days=end)
+        return Question.objects.create(question_text=question_text, pub_date=time, end_date=end_time)
     return Question.objects.create(question_text=question_text, pub_date=time)
 
 
@@ -30,6 +33,36 @@ class QuestionModelTests(TestCase):
                                                    seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
+
+    def test_is_published_with_past_question(self):
+        """If question already published, `is_published` return true."""
+        question = create_question("", -4)
+        self.assertIs(question.is_published(), True)
+
+    def test_is_published_with_future_question(self):
+        """If question is unpublished, `is_published` return false."""
+        question = create_question("", 4)
+        self.assertIs(question.is_published(), False)
+
+    def test_can_vote_on_voting_period(self):
+        """If question is on voting period, `can_vote` return true."""
+        # poll with end date.
+        question = create_question("", 0, 10)
+        self.assertIs(question.can_vote(), True)
+
+        # poll with out end date.
+        question = create_question("", 0)
+        self.assertIs(question.can_vote(), True)
+
+    def test_can_not_vote_after_end_date(self):
+        """After question's end date, `can_vote` return false."""
+        question = create_question("", -10, -1)
+        self.assertIs(question.can_vote(), False)
+
+    def test_can_not_vote_on_unpublished_poll(self):
+        """If question is unpublished, `can_vote` return false."""
+        question = create_question("", 2)
+        self.assertIs(question.can_vote(), False)
 
 
 class QuestionIndexViewTests(TestCase):
@@ -82,7 +115,7 @@ class QuestionDetailViewTests(TestCase):
         future_question = create_question(question_text='Future question.', days=5)
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
 
     def test_past_question(self):
         """The detail view of a question with a pub_date in the past displays
@@ -102,4 +135,12 @@ class QuestionResultsViewTests(TestCase):
         choice = question.choice_set.get(pk=1)
         url = reverse('polls:results', args=(question.id,))
         response = self.client.get(url)
-        self.assertContains(response, f"{choice.choice_text} -- {choice.votes} vote")
+        self.assertContains(response, f"{choice.choice_text}")
+        self.assertContains(response, '<th class="data">1</th>')
+
+    def test_future_question_result(self):
+        """If question is not published yet, It should not show result page"""
+        question = create_question("Future", 3)
+        url = reverse('polls:results', args=(question.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
