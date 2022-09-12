@@ -5,14 +5,14 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <a{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</a>
+    <a>{{ message }}</a>
     {% endfor %}
 </ul>
 {% endif %}
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li>
+        <li style="list-style-type: number;">
             <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
             <a> | </a>
             <a href="{% url 'polls:results' question.id %}"> See a result</a>

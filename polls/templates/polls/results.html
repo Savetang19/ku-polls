@@ -4,7 +4,10 @@
 <fieldset>
 <legend><h1>{{ question.question_text }}</h1></legend>
 {% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    <li>{{ choice.choice_text }} : {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    <!-- <div class="container">
+      <div class="skills percent" style="width: 80%;"></div>
+    </div> -->
 {% endfor %}
 </fieldset>
 <a href="{% url 'polls:index'%}"><input type="button" value="Back"></a>
