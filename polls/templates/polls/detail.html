@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
 <fieldset>
@@ -9,4 +12,5 @@
     {% endfor %}
 </fieldset>
 <input type="submit" value="Vote">
+<a href="{% url 'polls:index'%}"><input type="button" value="Back"></a>
 </form>

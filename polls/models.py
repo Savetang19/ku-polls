@@ -1,3 +1,4 @@
+"""This module includes the Question and Choice models for the Polls app."""
 import datetime
 
 from django.db import models
@@ -6,8 +7,11 @@ from django.contrib import admin
 
 
 class Question(models.Model):
+    """Model for create poll questions."""
+
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
+    end_date = models.DateTimeField("end date", null=True, blank=True)
 
     @admin.display(
         boolean=True,
@@ -15,17 +19,40 @@ class Question(models.Model):
         description="Published recently?",
     )
     def __str__(self):
+        """String representation for question."""
         return self.question_text
 
     def was_published_recently(self):
+        """Return true if the question was published within the last day.
+        Otherwise, return false.
+        """
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
+    def is_published(self):
+        """Return true if the question was published.
+        Otherwise return false.
+        """
+        now = timezone.now()
+        return now >= self.pub_date
+
+    def can_vote(self):
+        """Return true if the current time falls between the publication date
+        and the end date. Otherwise, return false.
+        """
+        now = timezone.now()
+        if not self.end_date:
+            return self.pub_date <= now
+        return self.pub_date <= now <= self.end_date
+
 
 class Choice(models.Model):
+    """Model for crate question's choices."""
+
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
     def __str__(self):
+        """String representation for choice."""
         return self.choice_text

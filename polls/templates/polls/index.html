@@ -1,9 +1,23 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<h1>Welcome to the KU polls; see the list of questions below!</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <a class="error_msg">{{ message }}</a>
+    {% endfor %}
+</ul>
+{% endif %}
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        <li style="list-style-type: number;">
+            <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            <a> | </a>
+            <a href="{% url 'polls:results' question.id %}"> See a result</a>
+
+        </li>
     {% endfor %}
     </ul>
 {% else %}

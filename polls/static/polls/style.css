@@ -1,6 +1,63 @@
 li a {
     color: green;
+    font-size: 22px;
 }
 body {
     background: white url("images/background.png") no-repeat;
 }
+li {
+    font-size: 22px;
+}
+input {
+    font-size: 15px;
+}
+label {
+    font-size: 22px;
+}
+.error_msg {
+    color: red;
+    font-size: 30px;
+}
+a {
+    font-size: 28px;
+    color: green;
+}
+table, th, tr {
+    border: 1px solid ghostwhite;
+    border-collapse: collapse;
+    width: 100%;
+}
+.head{
+    font-size: 28px;
+    color: green;
+    width: 50%;
+}
+.data{
+    font-size: 24px;
+    color: black;
+    width: 50%;
+}
+tr:nth-child(odd) {
+    background-color: lightblue;
+}
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+
+/* .container {
+  width: 100%;
+  background-color: #ddd;
+  shape-margin: 10px;
+}
+
+.skills {
+  text-align: right;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+}
+
+.percent {
+    background-color: #04AA6D;
+    border-radius: 5px;
+} */
