@@ -59,10 +59,10 @@ class ResultsView(generic.DetailView):
             messages.error(request,
                            f"Poll number {kwargs['pk']} does not exists.")
             return redirect("polls:index")
-        if question.can_vote():
+        if question.is_published():
             return render(request, self.template_name, {"question": question})
         else:
-            messages.error(request, f"Poll number {question.id} is not available to vote")
+            messages.error(request, f"Poll number {question.id} results are not available.")
             return redirect("polls:index")
 
 
