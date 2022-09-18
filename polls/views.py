@@ -71,6 +71,7 @@ class ResultsView(generic.DetailView):
 def vote(request, question_id):
     """Voting process on detail view."""
     question = get_object_or_404(Question, pk=question_id)
+    user = request.user
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
     except (KeyError, Choice.DoesNotExist):
@@ -80,9 +81,9 @@ def vote(request, question_id):
         })
     else:
         try:
-            vote_obj = Vote.objects.get(user=request.user)
+            vote_obj = Vote.objects.get(user=user)
             vote_obj.choice = selected_choice
             vote_obj.save()
         except Vote.DoesNotExist:
-            Vote.objects.create(user=request.user, choice=selected_choice).save()
+            Vote.objects.create(user=user, choice=selected_choice).save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
