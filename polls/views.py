@@ -44,6 +44,8 @@ class DetailView(generic.DetailView):
         else:
             messages.error(request, f"Poll number {question.id} is not available to vote")
             return redirect("polls:index")
+    
+
 
 
 class ResultsView(generic.DetailView):
@@ -81,9 +83,9 @@ def vote(request, question_id):
         })
     else:
         try:
-            vote_obj = Vote.objects.get(user=user)
-            vote_obj.choice = selected_choice
-            vote_obj.save()
+            vote = Vote.objects.get(user=user, choice__question=question)
+            vote.choice = selected_choice
+            vote.save()
         except Vote.DoesNotExist:
             Vote.objects.create(user=user, choice=selected_choice).save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))

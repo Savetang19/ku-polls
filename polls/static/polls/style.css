@@ -18,9 +18,10 @@ label {
     color: red;
     font-size: 30px;
 }
-a {
+.pollsQuestions {
     font-size: 28px;
-    color: green;
+    color: #0f6828
+    ;
 }
 table, th, tr {
     border: 1px solid ghostwhite;
@@ -42,6 +43,26 @@ tr:nth-child(odd) {
 }
 tr:nth-child(even) {
     background-color: #D6EEEE;
+}
+.myDiv {
+    border: 10px outset #007064;
+    background-color: #acc100;
+    text-align: center;
+}
+.welcomeText{
+    font-size: 21.5px;
+    text-align: right;
+    padding-bottom: 10px;
+    color: #0f6828
+    ;
+}
+.welcomeContainer{
+    text-align: right; 
+    padding-bottom: 10px;
+}
+#bloc1, #bloc2
+{
+    display:inline;
 }
 
 /* .container {
