@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
-from .models import Question, Choice
+from .models import Question, Choice, Vote
+from django.contrib.auth.decorators import login_required
 
 
 class IndexView(generic.ListView):
@@ -66,6 +67,7 @@ class ResultsView(generic.DetailView):
             return redirect("polls:index")
 
 
+@login_required
 def vote(request, question_id):
     """Voting process on detail view."""
     question = get_object_or_404(Question, pk=question_id)
@@ -77,6 +79,10 @@ def vote(request, question_id):
             "error_message": "You didn't select a choice.",
         })
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
+        try:
+            vote_obj = Vote.objects.get(user=request.user)
+            vote_obj.choice = selected_choice
+            vote_obj.save()
+        except Vote.DoesNotExist:
+            Vote.objects.create(user=request.user, choice=selected_choice).save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
