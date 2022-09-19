@@ -19,9 +19,8 @@ label {
     font-size: 30px;
 }
 .pollsQuestions {
-    font-size: 28px;
-    color: #0f6828
-    ;
+    font-size: 26px;
+    color: #0f6828;
 }
 table, th, tr {
     border: 1px solid ghostwhite;
@@ -51,34 +50,28 @@ tr:nth-child(even) {
 }
 .welcomeText{
     font-size: 21.5px;
-    text-align: right;
-    padding-bottom: 10px;
     color: #0f6828
     ;
 }
 .welcomeContainer{
-    text-align: right; 
-    padding-bottom: 10px;
+    float: right;
 }
 #bloc1, #bloc2
 {
-    display:inline;
+    display: inline;
 }
 
-/* .container {
-  width: 100%;
-  background-color: #ddd;
-  shape-margin: 10px;
+#div1, #div2{
+    display: inline;
 }
 
-.skills {
-  text-align: right;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  color: white;
+.time{
+    font-size: 20px;
+    color: #849500;
 }
 
-.percent {
-    background-color: #04AA6D;
-    border-radius: 5px;
-} */
+.pubDate{
+    font-size: 18px;
+    font-style: italic;
+    color: #849500;
+}

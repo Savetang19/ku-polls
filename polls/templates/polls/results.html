@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 
 <fieldset>
-<legend><h1>{{ question.question_text }}</h1></legend>
+<legend><h1 style="color: #0f6828;">{{ question.question_text }}</h1></legend>
 <table>
   <tr>
     <th class="head">Choice</th>
@@ -13,11 +13,6 @@
     <th class="data">{{ choice.choice_text }}</th>
     <th class="data">{{ choice.votes }}</th>
   </tr>
-    
-    <!---Try to create bar but I'm fialed.--->
-    <!-- <div class="container">
-      <div class="skills percent" style="width: 80%;"></div>
-    </div> -->
 {% endfor %}
 </table>
 </fieldset>
