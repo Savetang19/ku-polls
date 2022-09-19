@@ -41,12 +41,12 @@ class DetailView(generic.DetailView):
             return redirect("polls:index")
         
         try:
-            vote = Vote.objects.get(user=request.user, choice__question=question)
+            vote = Vote.objects.get(user=request.user, choice__in=question.choice_set.all())
             previous_vote = vote.choice.choice_text
         except Vote.DoesNotExist:
             previous_vote = ""
         if question.can_vote():
-            return render(request, self.template_name, {"question": question, "pervious_vote":previous_vote})
+            return render(request, self.template_name, {"question": question, "previous_vote":previous_vote})
         else:
             messages.error(request, f"Poll number {question.id} is not available to vote")
             return redirect("polls:index")
@@ -68,6 +68,8 @@ class ResultsView(generic.DetailView):
             messages.error(request,
                            f"Poll number {kwargs['pk']} does not exists.")
             return redirect("polls:index")
+        
+        # check if this question is already published or not.
         if question.is_published():
             return render(request, self.template_name, {"question": question})
         else:
