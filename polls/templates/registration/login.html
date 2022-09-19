@@ -10,6 +10,9 @@
   <!-- if your app redirects user to login before accessing some pages, then next contains return url -->
   <input type="hidden" name="next" value="{{next}}" />
 </form>
+
+<div>Create some account? <a href="{% url 'signup' %}">click here!</a></div>
+
 <!--Not implement yet-->
 <!--<p>-->
 <!--<a href="{% url 'password_reset' %}">Forgot password?</a>-->

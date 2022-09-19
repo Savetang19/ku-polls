@@ -3,7 +3,7 @@
 
 {% if user.is_authenticated %}
 <div class="welcomeContainer">
-    <div id="bloc1" class="welcomeText">Welcome back, {{ user.username }}</div>
+    <div id="bloc1" class="welcomeText">Welcome back, <strong>{{ user.username }}</strong></div>
     <a id="bloc2" href="{% url 'logout'%}"><input type="button" value="Log out"></a>
 </div>
 {% else %}
