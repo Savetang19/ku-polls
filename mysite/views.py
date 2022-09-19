@@ -14,7 +14,8 @@ def signup(request):
             raw_passwd = form.cleaned_data.get('password')
             user = authenticate(username=username, password=raw_passwd)
             login(request, user)
-            return redirect("polls:index")
+            messages.error(request, "Create account success! Please login!!!")
+            return redirect("login")
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})

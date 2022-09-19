@@ -43,7 +43,7 @@ class DetailView(generic.DetailView):
         try:
             vote = Vote.objects.get(user=request.user, choice__in=question.choice_set.all())
             previous_vote = vote.choice.choice_text
-        except Vote.DoesNotExist:
+        except (Vote.DoesNotExist, TypeError):
             previous_vote = ""
         if question.can_vote():
             return render(request, self.template_name, {"question": question, "previous_vote":previous_vote})

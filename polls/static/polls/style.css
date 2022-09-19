@@ -50,8 +50,7 @@ tr:nth-child(even) {
 }
 .welcomeText{
     font-size: 21.5px;
-    color: #0f6828
-    ;
+    color: #0f6828;
 }
 .welcomeContainer{
     float: right;
@@ -74,4 +73,16 @@ tr:nth-child(even) {
     font-size: 18px;
     font-style: italic;
     color: #849500;
+}
+
+.loginContainer{
+    text-align: center;
+    border: 10px outset #007064;
+    background-color: #eaefc8;
+}
+
+.signup{
+    font-size: 18px;
+    color: #007064;
+    padding-bottom: 10px;
 }
