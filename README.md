@@ -3,7 +3,30 @@ This is Web application for polls and surveys at Kasetsart University.
 App created as part of the [Individual Software Process](https://cpske.github.io/ISP) course at Kasetsart University.
 
 ## Install and Run
-To be add.
+Clone this repository by using this command on terminal
+```
+git clone https://github.com/Savetang19/ku-polls.git
+```
+DO NOT forget to change directory to projrct directory
+```
+cd ku-polls
+```
+You need to install the required packages by,
+```
+pip install -r requirements.txt
+```
+Then, to run the server please use
+```
+python manage.py runserver
+```
+
+## Demo Users
+You can log in to the site using the following account.
+|Username| Password|
+|:------:|:-------:|
+|demouser1|demopass1|
+|demouser2|demopass2|
+
 
 ## Project Documents
 All project documents are in the [Project Wiki](../../wiki/Home)
