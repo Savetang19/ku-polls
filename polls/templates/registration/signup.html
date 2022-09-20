@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<h1>Register</h1>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+    {{ form.as_p }}
+    </table>
+    <button type="submit">Register</button>
+    <input type="hidden" name="next" value="{{next}}" />
+</form>

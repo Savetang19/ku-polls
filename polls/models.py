@@ -1,9 +1,9 @@
 """This module includes the Question and Choice models for the Polls app."""
 import datetime
-
 from django.db import models
 from django.utils import timezone
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 
 class Question(models.Model):
@@ -51,8 +51,25 @@ class Choice(models.Model):
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+    # votes = models.IntegerField(default=0)
+
+    @property
+    def votes(self):
+        """ Count the number of votes for this choice."""
+        return Vote.objects.filter(choice=self).count()
 
     def __str__(self):
         """String representation for choice."""
         return self.choice_text
+
+
+class Vote(models.Model):
+    """Model for collect contains vote the user to whom it belongs and 
+    the choice on which the user is voting.
+    """
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+
+    def __str__(self):
+        """String representation for vote."""
+        return f"{self.user.username} votes for {self.choice.choice_text}"

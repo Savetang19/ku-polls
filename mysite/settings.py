@@ -95,6 +95,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # username/password authentication
+   'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_REDIRECT_URL = '/polls/'    # show list of polls
+LOGOUT_REDIRECT_URL = '/'         # after logout, go where?
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

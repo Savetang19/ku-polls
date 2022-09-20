@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+  <div class="loginContainer">
+    {% if messages %}
+        {% for message in messages %}
+        <h1>{{ message }}</h1>
+        {% endfor %}
+    {% else %}
+    <h1>Please login</h1>
+    {% endif %}
+    <form method="POST">
+      {% csrf_token %}
+      <table style="padding: 2ex;">
+      {{ form.as_p }}
+      </table>
+      <button type="submit">Login</button>
+      <!-- if your app redirects user to login before accessing some pages, then next contains return url -->
+      <input type="hidden" name="next" value="{{next}}" />
+    </form>
+    
+    <div class="signup">Create some account? <a style="color: #00897b;" href="{% url 'signup' %}">click here!</a></div>
+  </div>

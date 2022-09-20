@@ -18,9 +18,9 @@ label {
     color: red;
     font-size: 30px;
 }
-a {
-    font-size: 28px;
-    color: green;
+.pollsQuestions {
+    font-size: 26px;
+    color: #0f6828;
 }
 table, th, tr {
     border: 1px solid ghostwhite;
@@ -43,21 +43,46 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
     background-color: #D6EEEE;
 }
-
-/* .container {
-  width: 100%;
-  background-color: #ddd;
-  shape-margin: 10px;
+.myDiv {
+    border: 10px outset #007064;
+    background-color: #acc100;
+    text-align: center;
+}
+.welcomeText{
+    font-size: 21.5px;
+    color: #0f6828;
+}
+.welcomeContainer{
+    float: right;
+}
+#bloc1, #bloc2
+{
+    display: inline;
 }
 
-.skills {
-  text-align: right;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  color: white;
+#div1, #div2{
+    display: inline;
 }
 
-.percent {
-    background-color: #04AA6D;
-    border-radius: 5px;
-} */
+.time{
+    font-size: 20px;
+    color: #849500;
+}
+
+.pubDate{
+    font-size: 18px;
+    font-style: italic;
+    color: #849500;
+}
+
+.loginContainer{
+    text-align: center;
+    border: 10px outset #007064;
+    background-color: #eaefc8;
+}
+
+.signup{
+    font-size: 18px;
+    color: #007064;
+    padding-bottom: 10px;
+}
