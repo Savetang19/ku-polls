@@ -45,6 +45,7 @@ class DetailView(generic.DetailView):
             previous_vote = vote.choice.choice_text
         except (Vote.DoesNotExist, TypeError):
             previous_vote = ""
+
         if question.can_vote():
             return render(request, self.template_name, {"question": question, "previous_vote":previous_vote})
         else:
@@ -82,12 +83,17 @@ def vote(request, question_id):
     """Voting process on detail view."""
     question = get_object_or_404(Question, pk=question_id)
     user = request.user
+
+    if not question.can_vote():
+        messages.error(request, f"Poll number {question.id} is not available to vote")
+        return redirect("polls:index")
+    
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
     except (KeyError, Choice.DoesNotExist):
         return render(request, "polls/detail.html", {
             "question": question,
-            "error_message": "You didn't select a choice.",
+            "error_message": "Please select some choice!",
         })
     else:
         try:
