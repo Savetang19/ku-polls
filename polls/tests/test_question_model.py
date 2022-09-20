@@ -1,7 +1,7 @@
+"""This module contain tests for question model."""
 import datetime
 from django.test import TestCase
 from django.utils import timezone
-from django.urls import reverse
 from polls.models import Question
 
 
@@ -10,11 +10,14 @@ def create_question(question_text, days, end=None):
     time = timezone.now() + datetime.timedelta(days=days)
     if end is not None:
         end_time = timezone.now() + datetime.timedelta(days=end)
-        return Question.objects.create(question_text=question_text, pub_date=time, end_date=end_time)
+        return Question.objects.create(question_text=question_text,
+                                       pub_date=time, end_date=end_time)
     return Question.objects.create(question_text=question_text, pub_date=time)
 
 
 class QuestionModelTests(TestCase):
+    """The test class for tests Question model."""
+
     def test_was_published_recently_with_future_question(self):
         """Returns False for questions whose pub_date is in the future."""
         time = timezone.now() + datetime.timedelta(days=30)
