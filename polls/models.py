@@ -51,6 +51,7 @@ class Choice(models.Model):
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
+
     # votes = models.IntegerField(default=0)
 
     @property
@@ -64,7 +65,7 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
-    """Model for collect contains vote the user to whom it belongs and 
+    """Model for collect contains vote the user to whom it belongs and
     the choice on which the user is voting.
     """
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)

@@ -19,7 +19,8 @@ class IndexView(generic.ListView):
         """Return the last 5 published questions (not include future published
         question(s)).
         """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by(
+            '-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
@@ -49,10 +50,13 @@ class DetailView(generic.DetailView):
             previous_vote = ""
 
         if question.can_vote():
-            return render(request, self.template_name, {"question": question,
-                                                        "previous_vote": previous_vote})
+            return render(request, self.template_name,
+                          {"question": question,
+                           "previous_vote": previous_vote})
         else:
-            messages.error(request, f"Poll number {question.id} is not available to vote")
+            messages.error(request,
+                           f"Poll number {question.id} is not available to "
+                           f"vote")
             return redirect("polls:index")
 
 
@@ -67,14 +71,17 @@ class ResultsView(generic.DetailView):
         try:
             question = get_object_or_404(Question, pk=kwargs["pk"])
         except Http404:
-            messages.error(request, f"Poll number {kwargs['pk']} does not exists.")
+            messages.error(request,
+                           f"Poll number {kwargs['pk']} does not exists.")
             return redirect("polls:index")
 
         # check if this question is already published or not.
         if question.is_published():
             return render(request, self.template_name, {"question": question})
         else:
-            messages.error(request, f"Poll number {question.id} results are not available.")
+            messages.error(request,
+                           f"Poll number {question.id} results are not "
+                           f"available.")
             return redirect("polls:index")
 
 
@@ -85,7 +92,8 @@ def vote(request, question_id):
     user = request.user
 
     if not question.can_vote():
-        messages.error(request, f"Poll number {question.id} is not available to vote")
+        messages.error(request,
+                       f"Poll number {question.id} is not available to vote")
         return redirect("polls:index")
 
     try:
