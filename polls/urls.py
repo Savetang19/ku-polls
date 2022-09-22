@@ -1,3 +1,4 @@
+"""This module is use for create a url patterns for application."""
 from django.urls import path
 from . import views
 
