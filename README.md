@@ -1,3 +1,5 @@
+![test](https://github.com/Savetang19/ku-polls/actions/workflows/python-app.yml/badge.svg)
+[![codecov](https://codecov.io/gh/Savetang19/ku-polls/branch/main/graph/badge.svg?token=FISD5KU7K8)](https://codecov.io/gh/Savetang19/ku-polls)
 ## Online Polls And Surveys
 This is Web application for polls and surveys at Kasetsart University.  
 App created as part of the [Individual Software Process](https://cpske.github.io/ISP) course at Kasetsart University.
