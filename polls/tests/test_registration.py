@@ -39,5 +39,4 @@ class RegistrationTest(TestCase):
         form_data = {"username": "new_acc", "password1": "newacc1452",
                      "password2": "newacc1452"}
         response2 = self.client.post(signup, form_data)
-        self.assertEqual(response2.status_code, 302)
-        self.assertRedirects(response2, reverse("login"))
+        self.assertEqual(response2.status_code, 200)
